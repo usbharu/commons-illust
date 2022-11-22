@@ -30,7 +30,7 @@ public class XpKeywordsExifValueParser
     }
 
     @Override
-    public String getString() {
+    public String getStringValue() {
       return value;
     }
 

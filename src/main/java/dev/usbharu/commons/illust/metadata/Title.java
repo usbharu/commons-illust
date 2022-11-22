@@ -1,6 +1,7 @@
 package dev.usbharu.commons.illust.metadata;
 
-public interface Title extends MetadataValue {
+import dev.usbharu.commons.illust.metadata.type.Stringable;
 
-  String getString();
+public interface Title extends Stringable {
+
 }

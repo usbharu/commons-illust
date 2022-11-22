@@ -24,7 +24,7 @@ public class XpCommentExifValueParser extends ExifValueParser {
     }
 
     @Override
-    public String getString() {
+    public String getStringValue() {
       return comments;
     }
 

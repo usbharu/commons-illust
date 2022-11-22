@@ -1,6 +1,7 @@
 package dev.usbharu.commons.illust.metadata;
 
-public interface Comments extends MetadataValue {
+import dev.usbharu.commons.illust.metadata.type.Stringable;
 
-  String getString();
+public interface Comments extends Stringable {
+
 }

@@ -29,7 +29,7 @@ public class XpTitleExifValueParser extends ExifValueParser {
     }
 
     @Override
-    public String getString() {
+    public String getStringValue() {
       return value;
     }
   }
