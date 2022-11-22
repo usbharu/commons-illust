@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XpTagExifValueParser
+public class XpKeywordsExifValueParser
     extends ExifValueParser {
 
   @Override

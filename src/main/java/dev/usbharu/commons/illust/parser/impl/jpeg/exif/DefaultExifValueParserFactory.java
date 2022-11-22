@@ -1,7 +1,7 @@
 package dev.usbharu.commons.illust.parser.impl.jpeg.exif;
 
 import dev.usbharu.commons.illust.metadata.MetadataValue;
-import dev.usbharu.commons.illust.parser.impl.jpeg.exif.value.XpTagExifValueParser;
+import dev.usbharu.commons.illust.parser.impl.jpeg.exif.value.XpKeywordsExifValueParser;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class DefaultExifValueParserFactory
   @Override
   public ExifValueParser create(int tagId) {
     if (tagId == 0x9c9e) {
-      return new XpTagExifValueParser();
+      return new XpKeywordsExifValueParser();
     }
     return new ExifValueParser() {
       @Override
