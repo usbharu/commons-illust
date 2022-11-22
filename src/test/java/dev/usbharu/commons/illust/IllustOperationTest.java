@@ -8,11 +8,15 @@ import dev.usbharu.commons.illust.metadata.type.Stringable;
 import java.io.File;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class IllustOperationTest {
 
   @Test
   void name() {
+    Logger logger = LoggerFactory.getLogger(IllustOperationTest.class);
+    logger.info("aaaaaaaaaaaa");
     Metadata metadata =
         IllustOperation.getIllust(new File("K:\\資料\\趣味\\イラスト\\4\\73730976_p0.jpg"))
             .getMetadata();
