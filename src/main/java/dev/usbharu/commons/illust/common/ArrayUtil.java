@@ -15,13 +15,13 @@ public class ArrayUtil {
     if (aFromIndex < 0) {
       throw new ArrayIndexOutOfBoundsException("aFromIndex");
     }
-    if (aToIndex >= a.length) {
+    if (aToIndex > a.length) {
       throw new ArrayIndexOutOfBoundsException("aToIndex");
     }
     if (bFromIndex < 0) {
       throw new ArrayIndexOutOfBoundsException("bFromIndex");
     }
-    if (bToIndex >= b.length) {
+    if (bToIndex > b.length) {
       throw new ArrayIndexOutOfBoundsException("bToIndex");
     }
     int aLength = aToIndex - aFromIndex;

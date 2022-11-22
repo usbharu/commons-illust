@@ -18,8 +18,10 @@ public class JpegIllustParser extends IllustParser {
 
   private Metadata parseMetadata(IllustSource illustSource) {
     try (InputStream inputStream = illustSource.getInputStream()) {
-
+      JpegMetadataParser jpegMetadataParser = new JpegMetadataParser(inputStream);
+      return jpegMetadataParser.parse();
     } catch (IOException e) {
     }
+    throw new IllegalStateException();
   }
 }

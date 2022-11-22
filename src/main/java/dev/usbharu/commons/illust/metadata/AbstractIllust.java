@@ -10,6 +10,6 @@ public class AbstractIllust implements Illust {
 
   @Override
   public Metadata getMetadata() {
-    return null;
+    return metadata;
   }
 }

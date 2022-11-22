@@ -1,6 +1,6 @@
 package dev.usbharu.commons.illust.metadata;
 
-public interface Tag {
+public interface Tag extends MetadataValue {
 
   String getString();
 }
