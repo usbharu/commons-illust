@@ -33,5 +33,10 @@ public class XpTagExifValueParser
     public String getString() {
       return value;
     }
+
+    @Override
+    public String getValue() {
+      return value;
+    }
   }
 }
