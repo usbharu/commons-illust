@@ -14,11 +14,11 @@ public class DefaultExifValueParserFactory
   public ExifValueParser create(int tagId) {
 
     // TODO: 2022/11/22 ExifMetadataInfo 使うようにする
-    if (tagId == 0x9c9e) {
+    if (tagId == ExifMetadataConstants.XP_KEYWORDS.tagId) {
       return new XpKeywordsExifValueParser();
-    } else if (tagId == 0x9c9b) {
+    } else if (tagId == ExifMetadataConstants.XP_TITLE.tagId) {
       return new XpTitleExifValueParser();
-    } else if (tagId == 0x9c9c) {
+    } else if (tagId == ExifMetadataConstants.XP_COMMENT.tagId) {
       return new XpCommentExifValueParser();
     }
     return new ExifValueParser() {
