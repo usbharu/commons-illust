@@ -2,6 +2,7 @@ package dev.usbharu.commons.illust.parser.impl.jpeg;
 
 import dev.usbharu.commons.illust.metadata.MetadataValue;
 import dev.usbharu.commons.illust.metadata.Tag;
+import dev.usbharu.commons.illust.metadata.Title;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -46,7 +47,11 @@ class JpegMetadataParser {
     JpegSegmentParser jpegSegmentParser = jpegSegmentParserFactory.create(appSegment);
     List<? extends MetadataValue> parse = jpegSegmentParser.parse(appSegment);
     for (MetadataValue metadataValue : parse) {
-      jpegMetadata.tagList.add(((Tag) metadataValue));
+      if (metadataValue instanceof Tag) {
+        jpegMetadata.tagList.add(((Tag) metadataValue));
+      } else if (metadataValue instanceof Title) {
+        jpegMetadata.titleList.add((Title) metadataValue);
+      }
     }
   }
 

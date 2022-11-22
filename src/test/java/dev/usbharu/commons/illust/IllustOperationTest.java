@@ -1,6 +1,7 @@
 package dev.usbharu.commons.illust;
 
 import dev.usbharu.commons.illust.metadata.Metadata;
+import dev.usbharu.commons.illust.metadata.MetadataValue;
 import dev.usbharu.commons.illust.metadata.Tag;
 import dev.usbharu.commons.illust.metadata.Taggable;
 import java.io.File;
@@ -13,6 +14,9 @@ class IllustOperationTest {
     Metadata metadata =
         IllustOperation.getIllust(new File("K:\\資料\\趣味\\イラスト\\4\\73730976_p0.jpg"))
             .getMetadata();
+    for (MetadataValue data : metadata.getAllMetadata()) {
+      System.out.println("data.getValue() = " + data.getValue());
+    }
     System.out.println("metadata = " + metadata);
     if (metadata instanceof Taggable) {
       for (Tag tag : ((Taggable) metadata).getAllTag()) {
