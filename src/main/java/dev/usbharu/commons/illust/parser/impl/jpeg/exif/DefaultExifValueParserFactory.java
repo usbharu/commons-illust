@@ -1,6 +1,7 @@
 package dev.usbharu.commons.illust.parser.impl.jpeg.exif;
 
 import dev.usbharu.commons.illust.metadata.MetadataValue;
+import dev.usbharu.commons.illust.parser.impl.jpeg.exif.value.XpCommentExifValueParser;
 import dev.usbharu.commons.illust.parser.impl.jpeg.exif.value.XpKeywordsExifValueParser;
 import dev.usbharu.commons.illust.parser.impl.jpeg.exif.value.XpTitleExifValueParser;
 import java.util.Collections;
@@ -17,6 +18,8 @@ public class DefaultExifValueParserFactory
       return new XpKeywordsExifValueParser();
     } else if (tagId == 0x9c9b) {
       return new XpTitleExifValueParser();
+    } else if (tagId == 0x9c9c) {
+      return new XpCommentExifValueParser();
     }
     return new ExifValueParser() {
       @Override
