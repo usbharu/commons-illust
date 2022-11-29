@@ -50,7 +50,7 @@ public class PowerfulPixivDownloaderMetafileParser extends IllustParser {
         case URL:
           break;
         case TAGS:
-          break;
+          return tag(bufferedReader);
         case Date:
           break;
         case DESCRIPTION:
@@ -69,6 +69,18 @@ public class PowerfulPixivDownloaderMetafileParser extends IllustParser {
 
     result.add(new PixivIllustId(Integer.parseInt(line)));
     return result;
+  }
+
+  private List<PixivIllustTag> tag(BufferedReader bufferedReader) throws IOException {
+    String line = "";
+    List<PixivIllustTag> list = new ArrayList<>();
+    while (!(line = bufferedReader.readLine()).isEmpty()) {
+      if (line.startsWith("#")) {
+        line = line.substring(1);
+      }
+      list.add(new PixivIllustTag(line));
+    }
+    return list;
   }
 
   private enum PowerfulPixivDownloaderMetadataType {
