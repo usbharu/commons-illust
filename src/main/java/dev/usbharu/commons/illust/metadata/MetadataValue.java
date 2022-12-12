@@ -1,5 +1,8 @@
 package dev.usbharu.commons.illust.metadata;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface MetadataValue {
-  Object getValue();
+
+  @NotNull Object getValue();
 }

@@ -2,6 +2,7 @@ package dev.usbharu.commons.illust.parser.impl.other.pixiv;
 
 import dev.usbharu.commons.illust.metadata.Tag;
 import dev.usbharu.commons.illust.metadata.type.Stringable;
+import org.jetbrains.annotations.NotNull;
 
 public class PixivIllustTag implements Tag, Stringable {
 
@@ -12,12 +13,12 @@ public class PixivIllustTag implements Tag, Stringable {
   }
 
   @Override
-  public String getValue() {
+  public @NotNull String getValue() {
     return tag;
   }
 
   @Override
-  public String getStringValue() {
+  public @NotNull String getStringValue() {
     return tag;
   }
 }

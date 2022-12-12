@@ -18,7 +18,7 @@ class IllustOperationTest {
     Logger logger = LoggerFactory.getLogger(IllustOperationTest.class);
     logger.info("aaaaaaaaaaaa");
     Metadata metadata =
-        IllustOperation.getIllust(new File("K:\\資料\\趣味\\イラスト\\4\\73730976_p0.jpg"))
+        IllustOperation.getIllust(new File("K:\\資料\\趣味\\一時フォルダ\\100251320-meta.txt"))
             .getMetadata();
     for (MetadataValue data : metadata.getAllMetadata()) {
       if (data instanceof Stringable) {

@@ -2,6 +2,7 @@ package dev.usbharu.commons.illust.parser.impl.other.pixiv;
 
 import dev.usbharu.commons.illust.metadata.Id;
 import dev.usbharu.commons.illust.metadata.type.Integerable;
+import org.jetbrains.annotations.NotNull;
 
 public class PixivIllustId implements Id, Integerable {
 
@@ -12,17 +13,17 @@ public class PixivIllustId implements Id, Integerable {
   }
 
   @Override
-  public Integer getValue() {
+  public @NotNull Integer getValue() {
     return id;
   }
 
   @Override
-  public String getStringValue() {
+  public @NotNull String getStringValue() {
     return String.valueOf(id);
   }
 
   @Override
-  public Integer getIntegerValue() {
+  public @NotNull Integer getIntegerValue() {
     return id;
   }
 }

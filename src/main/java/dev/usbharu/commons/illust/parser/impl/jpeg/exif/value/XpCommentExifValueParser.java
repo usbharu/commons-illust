@@ -6,6 +6,7 @@ import dev.usbharu.commons.illust.parser.impl.jpeg.exif.ExifValueParser;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class XpCommentExifValueParser extends ExifValueParser {
 
@@ -24,12 +25,12 @@ public class XpCommentExifValueParser extends ExifValueParser {
     }
 
     @Override
-    public String getStringValue() {
+    public @NotNull String getStringValue() {
       return comments;
     }
 
     @Override
-    public Object getValue() {
+    public @NotNull Object getValue() {
       return comments;
     }
   }
