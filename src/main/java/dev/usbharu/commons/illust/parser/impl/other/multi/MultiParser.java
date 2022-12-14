@@ -14,7 +14,7 @@ public class MultiParser extends IllustParser {
   List<IllustParser> illustParsers;
 
   public MultiParser(IllustParser... illustParsers) {
-    this.illustParsers.addAll(Arrays.asList(illustParsers));
+    this.illustParsers = new ArrayList<>(Arrays.asList(illustParsers));
   }
 
   @Override

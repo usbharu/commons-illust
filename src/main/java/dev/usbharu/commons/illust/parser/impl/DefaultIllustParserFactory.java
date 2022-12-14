@@ -36,6 +36,11 @@ public class DefaultIllustParserFactory extends IllustParserFactory {
       } else {
         return new PowerfulPixivDownloaderMetafileParser();
       }
+    } else {
+      IllustParser illustParser = otherCheck(illustSource);
+      if (illustParser != null) {
+        return illustParser;
+      }
     }
     throw new IllegalArgumentException();
   }
@@ -46,6 +51,7 @@ public class DefaultIllustParserFactory extends IllustParserFactory {
         return new JpegIllustParser();
       }
     } catch (IOException e) {
+      e.printStackTrace();
       return null;
     }
     return null;
@@ -63,6 +69,7 @@ public class DefaultIllustParserFactory extends IllustParserFactory {
 
   private boolean jpegCheck(IllustSource illustSource) throws IOException {
     InputStream inputStream = illustSource.getInputStream();
+    inputStream.mark(Integer.MAX_VALUE);
     byte[] formatCHeck = new byte[4];
     inputStream.read(formatCHeck);
     boolean result = ArrayUtil.startWith(JPEG, formatCHeck);

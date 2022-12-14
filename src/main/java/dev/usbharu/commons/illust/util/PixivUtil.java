@@ -35,7 +35,7 @@ public class PixivUtil {
   }
 
   public static File getMetadataFile(File file) {
-    if (!isPixivFileName(file.getPath())) {
+    if (!isPixivFileName(file.getName())) {
       return null;
     }
     return file.getParentFile().getAbsoluteFile().toPath()
