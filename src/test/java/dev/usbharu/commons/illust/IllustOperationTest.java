@@ -1,0 +1,30 @@
+package dev.usbharu.commons.illust;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import dev.usbharu.commons.illust.metadata.Illust;
+import dev.usbharu.commons.illust.metadata.MetadataValue;
+import dev.usbharu.commons.illust.metadata.Tag;
+import java.io.File;
+import java.net.URL;
+import org.junit.jupiter.api.Test;
+
+class IllustOperationTest {
+
+  @Test
+  void getIllust_jpegFile_returnJpegIllust() {
+
+    File file =
+        new File(IllustOperation.class.getClassLoader().getResource("Konako.jpg").getFile());
+    Illust illust = IllustOperation.getIllust(file);
+    assertEquals(3, illust.getMetadata().getAllMetadata().size());
+  }
+
+  @Test
+  void getIllust_pixivIllust_returnPixivIllust() {
+    File file =
+        new File(IllustOperation.class.getClassLoader().getResource("123456_p1.png").getFile());
+    Illust illust = IllustOperation.getIllust(file);
+    assertEquals(11, illust.getMetadata().getAllMetadata().size());
+  }
+}
