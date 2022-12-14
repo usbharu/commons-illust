@@ -25,18 +25,21 @@ class JpegMetadataParser {
   public JpegMetadata parse() throws IOException {
     try (InputStream is = inputStream) {
       int read = 0;
+      is.read();
       while (!isLoaded() && (read = is.read()) != -1) {
         if (read != 0xff) {
           continue;
         }
         int read1 = is.read();
-        short size = (short) (is.read() << 8 | is.read());
+        System.out.printf("%X\n", read1);
+//        System.out.println("size = " + size);
         if (read1 == 0xe1) {
-          byte[] b = new byte[size - 1];
+          byte[] b = new byte[readSize(is) - 2];
           is.read(b);
           parseMetadata(b);
+//        } else if(read1 == 0xD8){
         } else {
-          is.skip(size);
+          is.skip(readSize(is) - 2);
         }
       }
     }
@@ -58,6 +61,13 @@ class JpegMetadataParser {
 
   private boolean isLoaded() {
     return xmp && exif;
+  }
+
+  private short readSize(InputStream is) throws IOException {
+    short size = (short) (is.read() << 8 | is.read());
+//    System.out.printf("%X\n", size);
+    System.out.println("size = " + size);
+    return size;
   }
 
 }

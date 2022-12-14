@@ -14,6 +14,9 @@ public class MicrosoftXmpPropertyParser extends XmpPropertyParser {
 
   @Override
   public List<? extends MetadataValue> parse(XMPMeta meta, XMPPropertyInfo info) {
+    if (info.getPath() == null) {
+      return Collections.emptyList();
+    }
     if (info.getPath().equals("MicrosoftPhoto:LastKeywordXMP")) {
       try {
         return keyword(meta, info);

@@ -10,18 +10,23 @@ import java.util.List;
 
 public class DefaultXmpPropertyParserFactory extends XmpPropertyParserFactory {
 
+  private final XmpPropertyParser xmpPropertyParser = new XmpPropertyParser() {
+    @Override
+    public List<MetadataValue> parse(XMPMeta meta, XMPPropertyInfo info) {
+      return Collections.emptyList();
+    }
+  };
+
   @Override
   public XmpPropertyParser create(String nameSpace) {
+    if (nameSpace == null || nameSpace.isEmpty()) {
+      return xmpPropertyParser;
+    }
     if (nameSpace.equals("http://purl.org/dc/elements/1.1/")) {
       return new DcXmpPropertyParser();
     } else if (nameSpace.equals("http://ns.microsoft.com/photo/1.0/")) {
       return new MicrosoftXmpPropertyParser();
     }
-    return new XmpPropertyParser() {
-      @Override
-      public List<MetadataValue> parse(XMPMeta meta, XMPPropertyInfo info) {
-        return Collections.emptyList();
-      }
-    };
+    return xmpPropertyParser;
   }
 }

@@ -7,6 +7,7 @@ import dev.usbharu.commons.illust.metadata.MetadataValue;
 import dev.usbharu.commons.illust.metadata.Tag;
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class IllustOperationTest {
@@ -17,7 +18,11 @@ class IllustOperationTest {
     File file =
         new File(IllustOperation.class.getClassLoader().getResource("Konako.jpg").getFile());
     Illust illust = IllustOperation.getIllust(file);
-    assertEquals(3, illust.getMetadata().getAllMetadata().size());
+    List<? extends MetadataValue> allMetadata = illust.getMetadata().getAllMetadata();
+    for (MetadataValue allMetadatum : allMetadata) {
+      System.out.println("allMetadatum.getValue() = " + allMetadatum.getValue());
+    }
+    assertEquals(6, allMetadata.size());
   }
 
   @Test

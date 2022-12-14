@@ -7,6 +7,7 @@ import com.adobe.internal.xmp.XMPMetaFactory;
 import com.adobe.internal.xmp.properties.XMPPropertyInfo;
 import dev.usbharu.commons.illust.metadata.MetadataValue;
 import dev.usbharu.commons.illust.parser.impl.jpeg.JpegSegmentParser;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,19 +18,22 @@ public class XmpParser extends JpegSegmentParser {
 
   @Override
   public List<? extends MetadataValue> parse(byte[] segment) {
+    String s = new String(segment, 29, segment.length - 29);
+    System.out.println("new String(segment) = " + s);
+    List<MetadataValue> result = new ArrayList<>();
     try {
-      XMPMeta xmpMeta = XMPMetaFactory.parseFromBuffer(segment);
+      XMPMeta xmpMeta = XMPMetaFactory.parseFromString(s);
       XMPIterator iterator = xmpMeta.iterator();
       while (iterator.hasNext()) {
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) iterator.next();
         XmpPropertyParser xmpPropertyParser =
             xmpPropertyParserFactory.create(xmpPropertyInfo.getNamespace());
-        xmpPropertyParser.parse(xmpMeta, xmpPropertyInfo);
+        result.addAll(xmpPropertyParser.parse(xmpMeta, xmpPropertyInfo));
 
       }
     } catch (XMPException e) {
       throw new RuntimeException(e);
     }
-    return Collections.emptyList();
+    return result;
   }
 }
