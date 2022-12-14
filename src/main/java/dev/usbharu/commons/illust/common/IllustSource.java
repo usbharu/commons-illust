@@ -13,4 +13,8 @@ public abstract class IllustSource {
   }
 
   public abstract InputStream getInputStream() throws IOException;
+
+  public String getFileName() {
+    return fileName;
+  }
 }

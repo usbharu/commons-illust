@@ -10,14 +10,20 @@ import org.jetbrains.annotations.NotNull;
 public class FileIllustSource extends IllustSource {
 
   private final File illust;
+  private final BufferedInputStream inputStream;
 
-  public FileIllustSource(@NotNull File illust) {
+  public FileIllustSource(@NotNull File illust) throws IOException {
     super(illust.getName());
     this.illust = illust;
+    inputStream = new BufferedInputStream(Files.newInputStream(illust.toPath()));
   }
 
   @Override
   public InputStream getInputStream() throws IOException {
-    return new BufferedInputStream(Files.newInputStream(illust.toPath()));
+    return inputStream;
+  }
+
+  public File getFile() {
+    return illust;
   }
 }

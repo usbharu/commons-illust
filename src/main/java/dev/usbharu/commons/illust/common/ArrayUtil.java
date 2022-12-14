@@ -37,4 +37,8 @@ public class ArrayUtil {
     return true;
   }
 
+  public static boolean startWith(byte[] a, byte[] b) {
+    return equals(a, 0, a.length, b, 0, a.length);
+  }
+
 }
