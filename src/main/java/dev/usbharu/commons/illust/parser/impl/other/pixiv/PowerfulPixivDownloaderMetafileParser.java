@@ -1,5 +1,6 @@
 package dev.usbharu.commons.illust.parser.impl.other.pixiv;
 
+import dev.usbharu.commons.illust.common.FileIllustSource;
 import dev.usbharu.commons.illust.common.IllustSource;
 import dev.usbharu.commons.illust.metadata.AbstractIllust;
 import dev.usbharu.commons.illust.metadata.Illust;
@@ -8,6 +9,7 @@ import dev.usbharu.commons.illust.metadata.MetadataValue;
 import dev.usbharu.commons.illust.parser.IllustParser;
 import dev.usbharu.commons.illust.parser.impl.other.pixiv.exception.PixivMetadataMalformedURLException;
 import dev.usbharu.commons.illust.parser.impl.other.pixiv.exception.PixivMetadataNumberFormatException;
+import dev.usbharu.commons.illust.util.PixivUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,6 +24,15 @@ public class PowerfulPixivDownloaderMetafileParser extends IllustParser {
 
   @Override
   public @NotNull Illust parse(IllustSource illustSource) {
+    if (!illustSource.getFileName().endsWith("-meta.txt")
+        && illustSource instanceof FileIllustSource) {
+      try {
+        illustSource = new FileIllustSource(
+            PixivUtil.getMetadataFile(((FileIllustSource) illustSource).getFile()));
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
     List<MetadataValue> metadataValues = null;
     try (BufferedReader bufferedReader = new BufferedReader(
         new InputStreamReader(illustSource.getInputStream()))) {

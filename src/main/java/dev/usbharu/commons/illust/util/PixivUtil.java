@@ -1,5 +1,6 @@
 package dev.usbharu.commons.illust.util;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,4 +34,12 @@ public class PixivUtil {
     return "";
   }
 
+  public static File getMetadataFile(File file) {
+    if (!isPixivFileName(file.getPath())) {
+      return null;
+    }
+    return file.getParentFile().getAbsoluteFile().toPath()
+        .resolve(getPixivIllustId(file.getName()) + "-meta.txt").toFile();
+
+  }
 }
