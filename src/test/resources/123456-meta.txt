@@ -1,0 +1,28 @@
+Id
+123456
+
+Title
+Made in WaifuLabs
+
+User
+Usbharu
+
+UserId
+123456
+
+URL
+https://www.pixiv.net/i/123456
+
+Tags
+#猫耳
+#制服
+#紫髪
+#オッドアイ
+#茶目
+#碧眼
+
+Date
+2022-11-14T07:04:57+00:00
+
+Description
+URL, ID and UserId is fake.
