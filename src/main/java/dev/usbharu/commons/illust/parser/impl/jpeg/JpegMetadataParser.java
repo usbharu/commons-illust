@@ -15,7 +15,8 @@ class JpegMetadataParser {
   private final boolean xmp = false;
   private final boolean exif = true;
 
-  JpegSegmentParserFactory jpegSegmentParserFactory = new DefaultJpegSegmentParserFactory();
+  public static JpegSegmentParserFactory jpegSegmentParserFactory =
+      new DefaultJpegSegmentParserFactory();
 
   JpegMetadataParser(InputStream inputStream) {
     this.inputStream = inputStream;

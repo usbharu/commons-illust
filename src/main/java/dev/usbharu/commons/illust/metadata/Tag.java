@@ -6,4 +6,7 @@ import org.jetbrains.annotations.NotNull;
 public interface Tag extends Stringable {
 
   @NotNull String getStringValue();
+
+  @Override
+  @NotNull String getValue();
 }
