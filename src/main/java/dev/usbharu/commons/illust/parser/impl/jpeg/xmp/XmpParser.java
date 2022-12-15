@@ -19,7 +19,6 @@ public class XmpParser extends JpegSegmentParser {
   @Override
   public List<? extends MetadataValue> parse(byte[] segment) {
     String s = new String(segment, 29, segment.length - 29);
-    System.out.println("new String(segment) = " + s);
     List<MetadataValue> result = new ArrayList<>();
     try {
       XMPMeta xmpMeta = XMPMetaFactory.parseFromString(s);

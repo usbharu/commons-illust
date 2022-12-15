@@ -36,43 +36,8 @@ public class ExifParser extends JpegSegmentParser {
     List<MetadataValue> metadataValueList = new ArrayList<>();
     for (int i = 0; i < ifdCount; i++) {
       metadataValueList.addAll(readField(byteBuffer));
-//      extracted(byteBuffer, metadataValueList);
     }
     return metadataValueList;
-  }
-
-  private void extracted(ByteBuffer byteBuffer, List<MetadataValue> metadataValueList) {
-    byte[] exifTag = new byte[2];
-    byteBuffer.get(exifTag);
-    short type = byteBuffer.getShort();
-    try {
-      IfdType.typeOf(type);
-    } catch (IllegalArgumentException e) {
-      System.out.println(hexToString(byteBuffer.array()));
-      System.out.println(byteBuffer);
-      throw new RuntimeException(e);
-    }
-    int count = byteBuffer.getInt();
-
-    IfdType ifdType = IfdType.typeOf(type);
-    int valueLength = ifdType.length * count;
-
-    if (byteBuffer.limit() < valueLength) {
-      return;
-    }
-    int current = byteBuffer.position();
-//      byteBuffer.mark();
-    if (valueLength > 4) {
-      int offset = byteBuffer.getInt();
-      byteBuffer.position(offset + 6);
-    }
-
-    ExifValueParser exifValueParser = getExifValueParser(ifdType.type);
-    byte[] value = new byte[valueLength];
-    byteBuffer.get(value);
-    metadataValueList.addAll(exifValueParser.parse(value));
-//      byteBuffer.reset();
-    byteBuffer.position(current);
   }
 
   protected List<? extends MetadataValue> readField(ByteBuffer byteBuffer) {
