@@ -30,7 +30,7 @@ class IllustOperationTest {
     File file =
         new File(IllustOperation.class.getClassLoader().getResource("123456_p1.png").getFile());
     Illust illust = IllustOperation.getIllust(file);
-    assertEquals(11, illust.getMetadata().getAllMetadata().size());
+    assertEquals(12, illust.getMetadata().getAllMetadata().size());
   }
 
   @Test
@@ -43,6 +43,6 @@ class IllustOperationTest {
       System.out.println(allMetadatum.getValue());
       System.out.println("allMetadatum.getClass() = " + allMetadatum.getClass());
     }
-    assertEquals(14, allMetadata.size());
+    assertEquals(15, allMetadata.size());
   }
 }

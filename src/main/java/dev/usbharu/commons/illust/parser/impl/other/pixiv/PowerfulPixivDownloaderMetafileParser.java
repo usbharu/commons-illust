@@ -152,7 +152,7 @@ public class PowerfulPixivDownloaderMetafileParser extends IllustParser {
   }
 
   private enum PowerfulPixivDownloaderMetadataType {
-    ID("ID"),
+    ID("Id"),
     TITLE("Title"),
     USER("User"),
     URL("URL"),
