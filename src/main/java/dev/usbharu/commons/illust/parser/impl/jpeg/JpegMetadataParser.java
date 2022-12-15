@@ -6,17 +6,18 @@ import dev.usbharu.commons.illust.metadata.Title;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 class JpegMetadataParser {
 
   private final InputStream inputStream;
   private final JpegMetadata jpegMetadata = new JpegMetadata();
-  private final boolean xmp = false;
-  private final boolean exif = true;
-
   public static JpegSegmentParserFactory jpegSegmentParserFactory =
       new DefaultJpegSegmentParserFactory();
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(JpegMetadataParser.class);
 
   JpegMetadataParser(InputStream inputStream) {
     this.inputStream = inputStream;
@@ -34,6 +35,7 @@ class JpegMetadataParser {
         if (read1 == 0xe1) {
           byte[] b = new byte[readSize(is) - 2];
           is.read(b);
+          LOGGER.debug("Parse Data length :{}", b.length);
           parseMetadata(b);
         } else {
           is.skip(readSize(is) - 2);
@@ -58,7 +60,7 @@ class JpegMetadataParser {
 
   private short readSize(InputStream is) throws IOException {
     short size = (short) (is.read() << 8 | is.read());
-    System.out.printf("%X\n", size);
+    LOGGER.debug("Size : {}", String.format("%X", size));
     return size;
   }
 

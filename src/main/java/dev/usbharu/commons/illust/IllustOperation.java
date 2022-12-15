@@ -11,8 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class IllustOperation {
+
+  public static IllustParserFactory illustParserFactory = new DefaultIllustParserFactory();
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(IllustOperation.class);
 
   private IllustOperation() {
     throw new IllegalStateException();
@@ -46,9 +52,11 @@ public final class IllustOperation {
   }
 
   private static IllustParser getIllustParser(IllustSource illustSource) {
-    IllustParserFactory factory = new DefaultIllustParserFactory();
-
-    return factory.from(illustSource);
+    IllustParserFactory factory = illustParserFactory;
+    LOGGER.debug("Use factory {}", factory.getClass().getName());
+    IllustParser illustParser = factory.from(illustSource);
+    LOGGER.debug("Use parser {}", illustParser.getClass().getName());
+    return illustParser;
   }
 
 }
