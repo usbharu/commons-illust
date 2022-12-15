@@ -13,10 +13,14 @@ public class DcXmpPropertyParser extends XmpPropertyParser {
 
   @Override
   public List<? extends MetadataValue> parse(XMPMeta meta, XMPPropertyInfo info) {
+    if (info.getPath() == null || info.getPath().isEmpty() || info.getPath().equals(" null")) {
+      return Collections.emptyList();
+    }
     DcTags dcTags;
     try {
-      dcTags = DcTags.typeOf("dc:" + info.getPath());
+      dcTags = DcTags.typeOf(info.getPath());
     } catch (IllegalArgumentException e) {
+      e.printStackTrace();
       return Collections.emptyList();
     }
     try {
@@ -60,8 +64,8 @@ public class DcXmpPropertyParser extends XmpPropertyParser {
   }
 
   enum DcTags {
-    CREATOR("creator"),
-    SUBJECT("subject");
+    CREATOR("dc:creator"),
+    SUBJECT("dc:subject");
     private final String name;
 
     DcTags(String name) {

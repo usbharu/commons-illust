@@ -22,7 +22,7 @@ class IllustOperationTest {
     for (MetadataValue allMetadatum : allMetadata) {
       System.out.println("allMetadatum.getValue() = " + allMetadatum.getValue());
     }
-    assertEquals(6, allMetadata.size());
+    assertEquals(9, allMetadata.size());
   }
 
   @Test
@@ -41,7 +41,8 @@ class IllustOperationTest {
     List<? extends MetadataValue> allMetadata = illust.getMetadata().getAllMetadata();
     for (MetadataValue allMetadatum : allMetadata) {
       System.out.println(allMetadatum.getValue());
+      System.out.println("allMetadatum.getClass() = " + allMetadatum.getClass());
     }
-    assertEquals(13, allMetadata.size());
+    assertEquals(14, allMetadata.size());
   }
 }
