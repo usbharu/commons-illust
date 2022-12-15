@@ -32,4 +32,16 @@ class IllustOperationTest {
     Illust illust = IllustOperation.getIllust(file);
     assertEquals(11, illust.getMetadata().getAllMetadata().size());
   }
+
+  @Test
+  void getIllust_pixivAndJpegIllust_returnMultiIllust() {
+    File file =
+        new File(IllustOperation.class.getClassLoader().getResource("987654321_p1.jpg").getFile());
+    Illust illust = IllustOperation.getIllust(file);
+    List<? extends MetadataValue> allMetadata = illust.getMetadata().getAllMetadata();
+    for (MetadataValue allMetadatum : allMetadata) {
+      System.out.println(allMetadatum.getValue());
+    }
+    assertEquals(13, allMetadata.size());
+  }
 }
