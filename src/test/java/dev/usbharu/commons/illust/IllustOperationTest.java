@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import dev.usbharu.commons.illust.metadata.Illust;
 import dev.usbharu.commons.illust.metadata.MetadataValue;
-import dev.usbharu.commons.illust.metadata.Tag;
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -44,5 +42,18 @@ class IllustOperationTest {
       System.out.println("allMetadatum.getClass() = " + allMetadatum.getClass());
     }
     assertEquals(15, allMetadata.size());
+  }
+
+  @Test
+  void getIllust_pixivMetaFile_returnMetadataOnlyIllust() {
+    File file =
+        new File(IllustOperation.class.getClassLoader().getResource("123456-meta.txt").getFile());
+    List<? extends MetadataValue> allMetadata =
+        IllustOperation.getIllust(file).getMetadata().getAllMetadata();
+    for (MetadataValue allMetadatum : allMetadata) {
+      System.out.println(allMetadatum.getValue());
+    }
+    assertEquals(12, allMetadata.size());
+
   }
 }

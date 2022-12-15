@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class DefaultIllustParserFactory extends IllustParserFactory {
 
   public static final byte[] JPEG = {(byte) 0xff, (byte) 0xd8};
-
+  public static final byte[] PIXIV_META_FILE = {(byte) 0x49, (byte) 0x64};
 
   @Override
   public IllustParser from(IllustSource illustSource) {
@@ -43,19 +43,35 @@ public class DefaultIllustParserFactory extends IllustParserFactory {
         return illustParser;
       }
     }
-    throw new IllegalArgumentException();
+    throw new IllegalArgumentException("対応していない形式です。");
   }
 
   private IllustParser otherCheck(IllustSource illustSource) {
     try {
       if (jpegCheck(illustSource)) {
         return new JpegIllustParser();
+      } else if (metaCheck(illustSource)) {
+        return new PowerfulPixivDownloaderMetafileParser();
       }
     } catch (IOException e) {
       e.printStackTrace();
       return null;
     }
     return null;
+  }
+
+  private boolean metaCheck(IllustSource illustSource) throws IOException {
+    InputStream inputStream = illustSource.getInputStream();
+    if (inputStream.markSupported()) {
+      inputStream.mark(Integer.MAX_VALUE);
+      byte[] b = new byte[2];
+      inputStream.read(b);
+      boolean isMetafile = ArrayUtil.startWith(PIXIV_META_FILE, b);
+      inputStream.reset();
+      return isMetafile;
+    } else {
+      return illustSource.getFileName().endsWith("-meta.txt");
+    }
   }
 
   private boolean hasOtherFile(IllustSource illustSource) {
