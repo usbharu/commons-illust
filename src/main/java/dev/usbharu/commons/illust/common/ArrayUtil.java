@@ -1,5 +1,7 @@
 package dev.usbharu.commons.illust.common;
 
+import java.util.Arrays;
+
 public class ArrayUtil {
 
   private ArrayUtil() {
@@ -38,6 +40,8 @@ public class ArrayUtil {
   }
 
   public static boolean startWith(byte[] a, byte[] b) {
+    System.out.println(Arrays.toString(a));
+    System.out.println(Arrays.toString(b));
     return equals(a, 0, a.length, b, 0, a.length);
   }
 
