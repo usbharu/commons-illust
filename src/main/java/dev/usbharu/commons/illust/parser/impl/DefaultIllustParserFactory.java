@@ -11,6 +11,7 @@ import dev.usbharu.commons.illust.parser.impl.jpeg.JpegIllustParser;
 import dev.usbharu.commons.illust.parser.impl.jpeg.xmp.XmpParser;
 import dev.usbharu.commons.illust.parser.impl.other.multi.MultiParser;
 import dev.usbharu.commons.illust.parser.impl.other.pixiv.PowerfulPixivDownloaderMetafileParser;
+import dev.usbharu.commons.illust.util.FileTypeUtil;
 import dev.usbharu.commons.illust.util.PixivUtil;
 import java.io.File;
 import java.io.IOException;
@@ -69,11 +70,16 @@ public class DefaultIllustParserFactory extends IllustParserFactory {
 
   private boolean jpegCheck(IllustSource illustSource) throws IOException {
     InputStream inputStream = illustSource.getInputStream();
-    inputStream.mark(Integer.MAX_VALUE);
-    byte[] formatCHeck = new byte[4];
-    inputStream.read(formatCHeck);
-    boolean result = ArrayUtil.startWith(JPEG, formatCHeck);
-    inputStream.reset();
-    return result;
+    if (inputStream.markSupported()) {
+
+      inputStream.mark(Integer.MAX_VALUE);
+      byte[] formatCHeck = new byte[4];
+      inputStream.read(formatCHeck);
+      boolean result = ArrayUtil.startWith(JPEG, formatCHeck);
+      inputStream.reset();
+      return result;
+    } else {
+      return FileTypeUtil.isJpeg(illustSource.getFileName());
+    }
   }
 }
