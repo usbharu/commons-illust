@@ -58,8 +58,8 @@ class JpegMetadataParser {
     }
   }
 
-  private short readSize(InputStream is) throws IOException {
-    short size = (short) (is.read() << 8 | is.read());
+  private int readSize(InputStream is) throws IOException {
+    int size = (is.read() << 8 | is.read());
     LOGGER.debug("Size : {}", String.format("%X", size));
     return size;
   }
