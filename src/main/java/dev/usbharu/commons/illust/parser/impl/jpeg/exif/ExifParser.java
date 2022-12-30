@@ -54,7 +54,7 @@ public class ExifParser extends JpegSegmentParser {
     byteBuffer.mark();
     if (valueLength > 4) {
       int offset = byteBuffer.getInt();
-      byteBuffer.position(offset + 6);
+      byteBuffer.position(offset + 6); //todo: positionをここで動かすと、markが消える可能性がある。
     }
 
     ExifValueParser exifValueParser = getExifValueParser(exifTag);
