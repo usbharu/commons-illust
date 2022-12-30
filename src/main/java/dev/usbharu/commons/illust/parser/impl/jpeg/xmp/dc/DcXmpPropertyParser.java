@@ -29,6 +29,8 @@ public class DcXmpPropertyParser extends XmpPropertyParser {
 
         case CREATOR:
           return creator(meta, info);
+        case FORMAT:
+          return format(meta, info);
         case SUBJECT:
           return subject(meta, info);
         default:
@@ -38,6 +40,17 @@ public class DcXmpPropertyParser extends XmpPropertyParser {
       e.printStackTrace();
       return Collections.emptyList();
     }
+  }
+
+  private List<? extends MetadataValue> format(XMPMeta meta, XMPPropertyInfo info)
+      throws XMPException {
+    int count = meta.countArrayItems(info.getNamespace(), info.getPath());
+    List<XmpDcFormat> result = new ArrayList<>();
+    for (int i = 0; i < count; i++) {
+      result.add(
+          new XmpDcFormat(meta.getArrayItem(info.getNamespace(), info.getPath(), i).getValue()));
+    }
+    return result;
   }
 
   private List<? extends MetadataValue> subject(XMPMeta meta, XMPPropertyInfo info)
@@ -65,6 +78,7 @@ public class DcXmpPropertyParser extends XmpPropertyParser {
 
   enum DcTags {
     CREATOR("dc:creator"),
+    FORMAT("dc:format"),
     SUBJECT("dc:subject");
     private final String name;
 
