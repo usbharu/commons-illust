@@ -42,44 +42,48 @@ public class DcXmpPropertyParser extends XmpPropertyParser {
     }
   }
 
-  private List<? extends MetadataValue> format(XMPMeta meta, XMPPropertyInfo info)
+  private List<MetadataValue> format(XMPMeta meta, XMPPropertyInfo info)
       throws XMPException {
     int count = meta.countArrayItems(info.getNamespace(), info.getPath());
-    List<XmpDcFormat> result = new ArrayList<>();
+    List<MetadataValue> result = new ArrayList<>();
     for (int i = 0; i < count; i++) {
       result.add(
-          new XmpDcFormat(meta.getArrayItem(info.getNamespace(), info.getPath(), i).getValue()));
+          new XmpDcFormat(meta.getArrayItem(info.getNamespace(), info.getPath(), i).getValue(),
+              info.getNamespace(), info.getPath()));
     }
     return result;
   }
 
-  private List<? extends MetadataValue> subject(XMPMeta meta, XMPPropertyInfo info)
+  private List<MetadataValue> subject(XMPMeta meta, XMPPropertyInfo info)
       throws XMPException {
     int count = meta.countArrayItems(info.getNamespace(), info.getPath());
-    List<XmpDcSubject> result = new ArrayList<>();
+    List<MetadataValue> result = new ArrayList<>();
     for (int i = 1; i <= count; i++) {
       result.add(
-          new XmpDcSubject(meta.getArrayItem(info.getNamespace(), info.getPath(), i).getValue()));
+          new XmpDcSubject(meta.getArrayItem(info.getNamespace(), info.getPath(), i).getValue(),
+              info.getNamespace(), info.getPath()));
     }
     return result;
   }
 
   //TODO : isArrayでチェック
-  private List<? extends MetadataValue> creator(XMPMeta meta, XMPPropertyInfo info)
+  private List<MetadataValue> creator(XMPMeta meta, XMPPropertyInfo info)
       throws XMPException {
     int count = meta.countArrayItems(info.getNamespace(), info.getPath());
-    List<XmpDcCreator> result = new ArrayList<>();
+    List<MetadataValue> result = new ArrayList<>();
     for (int i = 1; i <= count; i++) {
       result.add(
-          new XmpDcCreator(meta.getArrayItem(info.getNamespace(), info.getPath(), i).getValue()));
+          new XmpDcCreator(meta.getArrayItem(info.getNamespace(),
+              info.getPath(),
+              i).getValue(),
+              info.getNamespace(),
+              info.getPath()));
     }
     return result;
   }
 
   enum DcTags {
-    CREATOR("dc:creator"),
-    FORMAT("dc:format"),
-    SUBJECT("dc:subject");
+    CREATOR("dc:creator"), FORMAT("dc:format"), SUBJECT("dc:subject");
     private final String name;
 
     DcTags(String name) {
