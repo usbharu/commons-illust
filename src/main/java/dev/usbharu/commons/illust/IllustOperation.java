@@ -12,6 +12,8 @@ import dev.usbharu.commons.illust.parser.impl.DefaultIllustParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +35,12 @@ public final class IllustOperation {
     if (file.exists()) {
       return getIllust(file);
     }
-    InputStream resourceAsStream = IllustOperation.class.getResourceAsStream(path);
+    URL resource = IllustOperation.class.getClassLoader().getResource(path);
+    if (resource != null) {
+      return getIllust(new File(resource.getFile()));
+    }
+
+    InputStream resourceAsStream = IllustOperation.class.getClassLoader().getResourceAsStream(path);
     if (resourceAsStream != null) {
       InputStreamIllustSource inputStreamIllustSource =
           new InputStreamIllustSource(resourceAsStream, path);
@@ -45,6 +52,8 @@ public final class IllustOperation {
   public static @NotNull Illust getIllust(@NotNull File file) {
     try {
       return getIllust(new FileIllustSource(file));
+    } catch (NoSuchFileException e) {
+      throw new IllegalArgumentException(e);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
