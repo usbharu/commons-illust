@@ -85,6 +85,30 @@ class IllustOperationTest {
     );
   }
 
+  @ParameterizedTest
+  @MethodSource("getMetadataByTypeWithMetadata_type_returnMetadata_Source")
+  void getMetadataByTypeWithMetadata_type_returnMetadata(Metadata metadata,
+      Class<? extends MetadataValue> type, int expectedCount) {
+    int size = IllustOperation.getMetadataByType(metadata, type).size();
+    assertEquals(expectedCount, size);
+  }
+
+  private static Stream<Arguments> getMetadataByTypeWithMetadata_type_returnMetadata_Source() {
+    return Stream.of(
+        arguments((Metadata) () -> Collections.singletonList(new Tag() {
+          @Override
+          public @NotNull String getStringValue() {
+            return "english";
+          }
+
+          @Override
+          public @NotNull String getValue() {
+            return "english";
+          }
+        }), Tag.class, 1)
+    );
+  }
+
   private File getFile(String resourcePath) {
     return new File(IllustOperation.class.getClassLoader().getResource(resourcePath).getFile());
   }
