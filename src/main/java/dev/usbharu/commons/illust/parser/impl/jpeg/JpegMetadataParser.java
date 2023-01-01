@@ -1,10 +1,9 @@
 package dev.usbharu.commons.illust.parser.impl.jpeg;
 
 import dev.usbharu.commons.illust.metadata.MetadataValue;
-import dev.usbharu.commons.illust.metadata.Tag;
-import dev.usbharu.commons.illust.metadata.Title;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import org.slf4j.LoggerFactory;
 class JpegMetadataParser {
 
   private final InputStream inputStream;
-  private final JpegMetadata jpegMetadata = new JpegMetadata();
   public static JpegSegmentParserFactory jpegSegmentParserFactory =
       new DefaultJpegSegmentParserFactory();
 
@@ -24,6 +22,7 @@ class JpegMetadataParser {
   }
 
   public JpegMetadata parse() throws IOException {
+    List<MetadataValue> metadataValues = new ArrayList<>();
     try (InputStream is = inputStream) {
       int read = 0;
       is.read();
@@ -36,26 +35,19 @@ class JpegMetadataParser {
           byte[] b = new byte[readSize(is) - 2];
           is.read(b);
           LOGGER.debug("Parse Data length :{}", b.length);
-          parseMetadata(b);
+          metadataValues.addAll(parseMetadata(b));
         } else {
           is.skip(readSize(is) - 2);
         }
       }
     }
-    return jpegMetadata;
+    return new JpegMetadata(metadataValues);
   }
 
   // TODO: 2022/11/22 factory Methodパターンで作り直す
-  protected void parseMetadata(byte[] appSegment) {
+  protected List<? extends MetadataValue> parseMetadata(byte[] appSegment) {
     JpegSegmentParser jpegSegmentParser = jpegSegmentParserFactory.create(appSegment);
-    List<? extends MetadataValue> parse = jpegSegmentParser.parse(appSegment);
-    for (MetadataValue metadataValue : parse) {
-      if (metadataValue instanceof Tag) {
-        jpegMetadata.tagList.add(((Tag) metadataValue));
-      } else if (metadataValue instanceof Title) {
-        jpegMetadata.titleList.add((Title) metadataValue);
-      }
-    }
+    return jpegSegmentParser.parse(appSegment);
   }
 
   private int readSize(InputStream is) throws IOException {
