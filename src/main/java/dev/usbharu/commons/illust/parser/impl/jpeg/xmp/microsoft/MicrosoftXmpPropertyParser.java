@@ -27,13 +27,14 @@ public class MicrosoftXmpPropertyParser extends XmpPropertyParser {
     return Collections.emptyList();
   }
 
-  private List<? extends MetadataValue> keyword(XMPMeta meta, XMPPropertyInfo info)
+  private List<MetadataValue> keyword(XMPMeta meta, XMPPropertyInfo info)
       throws XMPException {
     int count = XmpUtil.computeArraySize(meta, info);
-    List<XmpMicrosoftLastKeywordXmp> result = new ArrayList<>();
+    List<MetadataValue> result = new ArrayList<>();
     for (int i = 0; i < count; i++) {
       result.add(
-          new XmpMicrosoftLastKeywordXmp(XmpUtil.getFixedArrayItem(meta, info, i).getValue()));
+          new XmpMicrosoftLastKeywordXmp(XmpUtil.getFixedArrayItem(meta, info, i).getValue(),
+              info.getNamespace(), info.getPath()));
     }
     return result;
   }

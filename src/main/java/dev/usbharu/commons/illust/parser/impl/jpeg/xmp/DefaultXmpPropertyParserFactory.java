@@ -12,7 +12,7 @@ public class DefaultXmpPropertyParserFactory extends XmpPropertyParserFactory {
 
   private final XmpPropertyParser xmpPropertyParser = new XmpPropertyParser() {
     @Override
-    public List<MetadataValue> parse(XMPMeta meta, XMPPropertyInfo info) {
+    public List<? extends MetadataValue> parse(XMPMeta meta, XMPPropertyInfo info) {
       return Collections.emptyList();
     }
   };
