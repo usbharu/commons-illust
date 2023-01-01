@@ -20,7 +20,7 @@ class IllustOperationTest {
     for (MetadataValue allMetadatum : allMetadata) {
       System.out.println("allMetadatum.getValue() = " + allMetadatum.getValue());
     }
-    assertEquals(9, allMetadata.size());
+    assertEquals(10, allMetadata.size());
   }
 
   @Test
