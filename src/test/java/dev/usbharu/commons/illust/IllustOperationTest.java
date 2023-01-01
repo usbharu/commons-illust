@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import dev.usbharu.commons.illust.metadata.Illust;
 import dev.usbharu.commons.illust.metadata.MetadataValue;
+import dev.usbharu.commons.illust.metadata.Tag;
+import dev.usbharu.commons.illust.metadata.Title;
 import java.io.File;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -55,5 +57,16 @@ class IllustOperationTest {
     }
     assertEquals(12, allMetadata.size());
 
+  }
+
+  @Test
+  void getMetadataByType_getTagType_returnTagType() {
+    File file =
+        new File(IllustOperation.class.getClassLoader().getResource("123456-meta.txt").getFile());
+    List<? extends MetadataValue> metadataByType =
+        IllustOperation.getMetadataByType(IllustOperation.getIllust(file).getMetadata(), Tag.class);
+    for (MetadataValue metadataValue : metadataByType) {
+      System.out.println("metadataValue = " + metadataValue);
+    }
   }
 }
