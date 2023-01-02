@@ -1,5 +1,6 @@
 package dev.usbharu.commons.illust.common;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Constructor;
@@ -18,9 +19,7 @@ class ArrayUtilTest {
     try {
       declaredConstructors[0].newInstance();
     } catch (InvocationTargetException e) {
-      Throwable cause = e.getCause();
-      System.out.println("cause = " + cause);
-      assertTrue(cause instanceof IllegalStateException);
+      assertThat(e.getCause()).isInstanceOf(IllegalStateException.class);
     } catch (InstantiationException | IllegalAccessException e) {
       throw new RuntimeException(e);
     }
