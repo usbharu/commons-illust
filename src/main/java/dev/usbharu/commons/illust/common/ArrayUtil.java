@@ -1,7 +1,5 @@
 package dev.usbharu.commons.illust.common;
 
-import java.util.Arrays;
-
 public class ArrayUtil {
 
   private ArrayUtil() {
