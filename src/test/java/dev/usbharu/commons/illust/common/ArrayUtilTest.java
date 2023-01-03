@@ -108,4 +108,20 @@ class ArrayUtilTest {
         arguments(createByteArrayFromIntArray(), createByteArrayFromIntArray())
     );
   }
+
+  @ParameterizedTest
+  @MethodSource
+  void startWith_notStartWith_returnFalse(byte[] a, byte[] b) {
+    assertFalse(ArrayUtil.startWith(a, b));
+  }
+
+  public static Stream<Arguments> startWith_notStartWith_returnFalse() {
+    return Stream.of(
+        arguments(createByteArrayFromIntArray(976, 82, 841, 153, 143, 654, 148),
+            createByteArrayFromIntArray(905, 30, 921, 596, 49, 692, 165, 785, 199)),
+        arguments(createByteArrayFromIntArray(909, 992, 731), createByteArrayFromIntArray()),
+        arguments(createByteArrayFromIntArray(), createByteArrayFromIntArray(54, 649, 478, 378)),
+        arguments(createByteArrayFromIntArray(570), createByteArrayFromIntArray(872))
+    );
+  }
 }
