@@ -14,7 +14,8 @@ class ThumbnailGeneratorTest {
   void generate() throws IOException {
     ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator();
     thumbnailGenerator.generate(new FileIllustSource(
-            new File("K:\\資料\\趣味\\イラスト\\1\\___hnkn___ki-1517628060119580675-img1.jpg")), 1000,
-        1000);
+            new File(thumbnailGenerator.getClass().getClassLoader().getResource("thumbnail/waifu20.jpg")
+                .getFile())), 300,
+        300);
   }
 }

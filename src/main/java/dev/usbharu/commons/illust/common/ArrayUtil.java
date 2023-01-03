@@ -1,7 +1,5 @@
 package dev.usbharu.commons.illust.common;
 
-import java.util.Arrays;
-
 public class ArrayUtil {
 
   private ArrayUtil() {
@@ -14,16 +12,16 @@ public class ArrayUtil {
       byte[] b,
       int bFromIndex,
       int bToIndex) {
-    if (aFromIndex < 0) {
+    if (aFromIndex < 0 || aFromIndex > a.length) {
       throw new ArrayIndexOutOfBoundsException("aFromIndex");
     }
-    if (aToIndex > a.length) {
+    if (aToIndex > a.length || aToIndex < 0) {
       throw new ArrayIndexOutOfBoundsException("aToIndex");
     }
-    if (bFromIndex < 0) {
+    if (bFromIndex < 0 || bFromIndex > a.length) {
       throw new ArrayIndexOutOfBoundsException("bFromIndex");
     }
-    if (bToIndex > b.length) {
+    if (bToIndex > b.length || bToIndex < 0) {
       throw new ArrayIndexOutOfBoundsException("bToIndex");
     }
     int aLength = aToIndex - aFromIndex;
@@ -40,6 +38,12 @@ public class ArrayUtil {
   }
 
   public static boolean startWith(byte[] a, byte[] b) {
+    if (a.length == 0 && b.length == 0) {
+      return true;
+    }
+    if (a.length == 0 || b.length == 0 || a.length > b.length) {
+      return false;
+    }
     return equals(a, 0, a.length, b, 0, a.length);
   }
 
