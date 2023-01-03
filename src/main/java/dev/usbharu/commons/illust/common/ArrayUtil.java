@@ -38,6 +38,12 @@ public class ArrayUtil {
   }
 
   public static boolean startWith(byte[] a, byte[] b) {
+    if (a.length == 0 && b.length == 0) {
+      return true;
+    }
+    if (a.length == 0 || b.length == 0 || a.length > b.length) {
+      return false;
+    }
     return equals(a, 0, a.length, b, 0, a.length);
   }
 
