@@ -12,16 +12,16 @@ public class ArrayUtil {
       byte[] b,
       int bFromIndex,
       int bToIndex) {
-    if (aFromIndex < 0) {
+    if (aFromIndex < 0 || aFromIndex > a.length) {
       throw new ArrayIndexOutOfBoundsException("aFromIndex");
     }
-    if (aToIndex > a.length) {
+    if (aToIndex > a.length || aToIndex < 0) {
       throw new ArrayIndexOutOfBoundsException("aToIndex");
     }
-    if (bFromIndex < 0) {
+    if (bFromIndex < 0 || bFromIndex > a.length) {
       throw new ArrayIndexOutOfBoundsException("bFromIndex");
     }
-    if (bToIndex > b.length) {
+    if (bToIndex > b.length || bToIndex < 0) {
       throw new ArrayIndexOutOfBoundsException("bToIndex");
     }
     int aLength = aToIndex - aFromIndex;
